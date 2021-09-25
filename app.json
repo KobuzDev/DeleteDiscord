@@ -1,0 +1,21 @@
+{
+  "name": "DeleteDiscord",
+  "description": "A simple music player bot for Discord in Java",
+  "repository": "https://github.com/KobuzDev/DeleteDiscord",
+  "logo": "https://support.discord.com/hc/article_attachments/1500015317842/Rebrand_Blog__1_.png",
+  "keywords": ["node", "express", "static"]
+  "env": {
+    "Discord token": {
+      "description": "The Discord token",
+    },
+    "Command channel": {
+      "description": "The id of channel commands",
+    },
+    "Activity type": {
+      "description": "Type of activity (PLAYING, STREAMING, WATCHING, LISTENING)",
+    }
+    "Activity text": {
+      "description": "Text of activity",
+    }
+  }
+}
