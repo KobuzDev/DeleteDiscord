@@ -12,7 +12,7 @@ public class ActivityTools {
 	private static DiscordApi api;
 	
 	public static void init(String text, ActivityType type, DiscordApi api) {
-		
+		api.updateActivity(type, text);
 		ActivityTools.text = text;
 		ActivityTools.type = type;
 		ActivityTools.api = api;

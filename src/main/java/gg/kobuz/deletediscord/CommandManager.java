@@ -16,13 +16,19 @@ import gg.kobuz.deletediscord.util.Logger;
 public class CommandManager {
 	
 	public CommandManager(User user, TextChannel channel, String cmdentiere, Server server, DiscordApi api, DeleteDiscord discord, MessageCreateEvent event) {
-		
-		if(cmdentiere.equalsIgnoreCase("!disconnect")) {
-			discord.disconnectChannel();
-			ActivityTools.resetActivity();
-			EmbedList.disconnect(channel, user);
-		}
-		
+		if(!cmdentiere.contains(" ")) {
+			if(cmdentiere.equalsIgnoreCase("!disconnect")) {
+				discord.disconnectChannel();
+				ActivityTools.resetActivity();
+				EmbedList.disconnect(channel, user);
+			}else if(cmdentiere.equals("!pause")) {
+				discord.getPlayer().pause(user);
+			}else if(cmdentiere.equals("!resume")) {
+				discord.getPlayer().resume(user);
+			}else if(cmdentiere.equals("!info")) {
+				EmbedList.info(channel, user);
+			}
+		}else {
 		String[] resulttab = cmdentiere.split(" ");
 		String cmd = resulttab[0];
 		String margs = resulttab[1];
@@ -34,6 +40,7 @@ public class CommandManager {
 			ServerVoiceChannel voice = user.getConnectedVoiceChannel(server).get();
 			
 			discord.connectToTheChannelAndPlay(voice, margs, AudioServer.YOUTUBE, user);
+		}
 		}
 	}
 

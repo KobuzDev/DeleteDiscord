@@ -111,13 +111,13 @@ public class DeleteMusicPlayer {
 		track = player.getPlayingTrack();
 	}
 	
-	public void pause() {
-		player.setPaused(true);
+	public void pause(User user) {
 		api.unsetActivity();
+		EmbedList.pauseResume(delete.getCommand(), user, true);
 	}
 	
-	public void play() {
-		player.setPaused(false);
+	public void resume(User user) {
+		EmbedList.pauseResume(delete.getCommand(), user, false);
 		ActivityTools.updateActivity(track);
 	}
 	

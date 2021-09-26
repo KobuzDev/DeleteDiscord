@@ -33,6 +33,7 @@ public class DeleteDiscord {
 		DiscordApi api = new DiscordApiBuilder()
 				.setToken(config.getData("token"))
 				.login().join();
+		
 		ActivityTools.init(config.getData("activity-text"), ActivityType.valueOf(config.getData("activity-type")), api);
 		
 		command = api.getTextChannelById(config.getData("command-channel")).get();
@@ -41,9 +42,11 @@ public class DeleteDiscord {
 		api.addMessageCreateListener(event -> {
 			if(!event.getMessageAuthor().asUser().get().isBot()) {
 				if(event.getChannel().equals(command)) {
-					User user = event.getMessageAuthor().asUser().get();
-					Logger.info(user.getDiscriminatedName() + " executed a command: " + event.getMessageContent());
-					new CommandManager(user, command, event.getMessageContent(), event.getServer().get(), api, this, event);
+					if(event.getMessageContent().startsWith("!")) {
+						User user = event.getMessageAuthor().asUser().get();
+						Logger.info(user.getDiscriminatedName() + " executed a command: " + event.getMessageContent());
+						new CommandManager(user, command, event.getMessageContent(), event.getServer().get(), api, this, event);
+					}
 				}
 			}
 		});
