@@ -81,5 +81,17 @@ public class EmbedList {
 				.setAuthor(user);
 		channel.sendMessage(embed);
 	}
+	
+	public static void loop(TextChannel channel, User user, boolean isLoop) {
+		EmbedBuilder embed = new EmbedBuilder()
+				.setColor(Color.MAGENTA)
+				.setAuthor(user);
+		if(isLoop) {
+			embed.setTitle("La musique sera joué en boucle");
+		}else {
+			embed.setTitle("La musique ne sera plus joué en boucle");
+		}
+		channel.sendMessage(embed);
+	}
 
 }

@@ -24,6 +24,7 @@ public class DeleteDiscord {
 	private DeleteMusicPlayer player;
 	
 	private AudioConnection audioconnect;
+	public boolean isLoop;
 	
 	public DeleteDiscord(Configuration config) {
 		this.config = config;
@@ -42,7 +43,7 @@ public class DeleteDiscord {
 		api.addMessageCreateListener(event -> {
 			if(!event.getMessageAuthor().asUser().get().isBot()) {
 				if(event.getChannel().equals(command)) {
-					if(event.getMessageContent().startsWith("!")) {
+					if(event.getMessageContent().startsWith(config.getData("prefix"))) {
 						User user = event.getMessageAuthor().asUser().get();
 						Logger.info(user.getDiscriminatedName() + " executed a command: " + event.getMessageContent());
 						new CommandManager(user, command, event.getMessageContent(), event.getServer().get(), api, this, event);

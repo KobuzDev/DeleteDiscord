@@ -72,7 +72,7 @@ public class DeleteMusicPlayer {
 		// Create an audio source and add it to the audio connection's queue
 		AudioSource source = (AudioSource) new DeleteAudioBase(api, player);
 		audioconnect.setAudioSource(source);
-
+		player.addListener(new AudioEvent());
 		// You can now use the AudioPlayer like you would normally do with Lavaplayer, e.g.,
 		playerManager.loadItem(url, new AudioLoadResultHandler() {
 			
@@ -109,6 +109,13 @@ public class DeleteMusicPlayer {
 		});
 		
 		track = player.getPlayingTrack();
+	}
+	
+	public void playTrack(AudioTrack track) {
+		player.playTrack(track);
+		EmbedList.playingSong(text, user, track);
+        Logger.info("Starting song " + track.getInfo().title + " by " + track.getInfo().author + " on " + audioconnect.getChannel().getName() + " requested by " + user.getDiscriminatedName());
+        ActivityTools.updateActivity(track);
 	}
 	
 	public void pause(User user) {

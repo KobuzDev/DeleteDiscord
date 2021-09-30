@@ -21,12 +21,24 @@ public class CommandManager {
 				discord.disconnectChannel();
 				ActivityTools.resetActivity();
 				EmbedList.disconnect(channel, user);
-			}else if(cmdentiere.equals("!pause")) {
+			}else if(cmdentiere.contains("pause")) {
 				discord.getPlayer().pause(user);
-			}else if(cmdentiere.equals("!resume")) {
+				Logger.info("Music paused");
+			}else if(cmdentiere.contains("resume")) {
 				discord.getPlayer().resume(user);
-			}else if(cmdentiere.equals("!info")) {
+				Logger.info("MusicResume");
+			}else if(cmdentiere.contains("info")) {
 				EmbedList.info(channel, user);
+			}else if(cmdentiere.contains("loop")) {
+				if(discord.isLoop) {
+					discord.isLoop = false;
+					EmbedList.loop(channel, user, false);
+					Logger.info("Loop enabled");
+				}else {
+					discord.isLoop = false;
+					EmbedList.loop(channel, user, false);
+					Logger.info("Loop disable");
+				}
 			}
 		}else {
 		String[] resulttab = cmdentiere.split(" ");
@@ -34,12 +46,17 @@ public class CommandManager {
 		String margs = resulttab[1];
 		
 		
-		if(cmd.startsWith("!ytplay")) {
+		if(cmd.startsWith(discord.getConfig().getData("prefix") + "ytplay")) {
 			String[] result = cmd.split(" ");
 			event.getMessage().delete();
 			ServerVoiceChannel voice = user.getConnectedVoiceChannel(server).get();
+			if(api.getYourself().isConnected(voice)) {
+				discord.getPlayer().playSong(margs, AudioServer.YOUTUBE, discord.getAudioConnect(), user);
+			}else {
+				discord.connectToTheChannelAndPlay(voice, margs, AudioServer.YOUTUBE, user);
+			}
 			
-			discord.connectToTheChannelAndPlay(voice, margs, AudioServer.YOUTUBE, user);
+			
 		}
 		}
 	}
