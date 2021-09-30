@@ -17,7 +17,7 @@ import joptsimple.OptionSpec;
 
 public class Main {
 	
-	public static String version = "1.0_BETA";
+	public static String version = "1.1_BETA";
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		OptionParser parser = new OptionParser();
