@@ -36,6 +36,7 @@ public class DeleteMusicPlayer {
 	
 	private AudioPlayer player;
 	private AudioTrack track;
+	private User user;
 
 	private DeleteDiscord delete;
 	
@@ -81,7 +82,7 @@ public class DeleteMusicPlayer {
 		    @Override
 		    public void trackLoaded(AudioTrack track) {
 		        player.playTrack(track);
-		        
+		        DeleteDiscord.theDelete.getPlayer().user = user;
 		        EmbedList.playingSong(text, user, track);
 		        Logger.info("Starting song " + track.getInfo().title + " by " + track.getInfo().author + " on " + audioconnect.getChannel().getName() + " requested by " + user.getDiscriminatedName());
 		        ActivityTools.updateActivity(track);
@@ -113,8 +114,8 @@ public class DeleteMusicPlayer {
 	
 	public void playTrack(AudioTrack track) {
 		player.playTrack(track);
-		EmbedList.playingSong(text, user, track);
-        Logger.info("Starting song " + track.getInfo().title + " by " + track.getInfo().author + " on " + audioconnect.getChannel().getName() + " requested by " + user.getDiscriminatedName());
+		EmbedList.playingSong(api.getTextChannelById(DeleteDiscord.theDelete.getConfig().getData("channel-command")).get(), user, track);
+        Logger.info("Starting song " + track.getInfo().title + " by " + track.getInfo().author + " on " + DeleteDiscord.theDelete.getAudioConnect().getChannel().getName() + " requested by " + user.getDiscriminatedName());
         ActivityTools.updateActivity(track);
 	}
 	
